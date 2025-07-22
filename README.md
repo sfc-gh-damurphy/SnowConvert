@@ -39,7 +39,7 @@ Provide a brief agenda to help SEs understand pacing:
 - [Repository Structure](#-repository-structure)
 - [Prerequisites & Setup Details](#-prerequisites--setup-details)
 - [Estimated Lab Timeline](#-estimated-lab-timeline)
-- [Troubleshooting & FAQ](#-troubleshooting--faq)
+- [Troubleshooting & FAQ](#%EF%B8%8F-troubleshooting--faq)
 - [Cleanup & Cost-Stewardship Procedures](#-cleanup--cost-stewardship-procedures)
 - [Links to Internal Resources & Helpful Documents](#-links-to-internal-resources--helpful-documents)
 
