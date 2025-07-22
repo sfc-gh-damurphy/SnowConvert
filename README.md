@@ -1,7 +1,5 @@
-# College of XX XXX HOL: Alternate Business Title
-**Brief tagline emphasizing outcome or theme.**
-
-![Lab Architecture](images/architecture_diagram.png)
+# College of Analytics and Migration HOL: Snowconvert HOL with SQL Server and AI
+**Utilize Snowconvert to quickly understand the scope of your migration**
 
 ---
 
@@ -12,24 +10,25 @@ Watch the [X-minute Lab Overview Video](overview.mp4) for a detailed walkthrough
 
 ## 🛠️ Hands-On Lab Overview
 
-In this hands-on lab, you'll step into the shoes of **XXX** tasked with **XXX**.
+In this hands-on lab, you'll step into the shoes of **Data Engineer** tasked with **Migrating from SQL Server to Snowflake**.
 
 ### 📋 What You’ll Do:
+In this lab we will look at the Adventure Works database inside a SQL Server database. We will take a look at the catalog objects (tables, views) and some of the code that is there (stored procedures). Snowconvert will then extract that information and look for possible roadblocks to a migration and processes to consider. It will suggest some solutions but we will find out that the solutions it offers are not a best practice. This is where the GenAI integration of Snowflake Cortex will come into play to help us get possible solutions to this other than what SnowConvert generates programmatically.
+
+We will then take those changes and migrate the structures as well as the data to our snowflake environment.
 List of 4–6 concrete tasks participants will complete. Clearly bold important terms.
-- **Task 1:** [Brief description of the first hands-on activity.]
-- **Task 2:** [Brief description of the second hands-on activity.]
-- **Task 3:** [Brief description of the third hands-on activity.]
-- **Task 4 (Optional)**: [Additional extension or customization step.]
+- **Task 1:** Connect to a SQL Server database and pull catalog information
+- **Task 2:** Generate the input code from SQL Server
+- **Task 3:** Understand the errors that SnowConvert surfaces
+- **Task 4:** Resolve those errors using Cortex
+- **Task 5:** Move the structure and the data to Snowflake
 
 ### ⏲️ Estimated Lab Timeline
 
 Provide a brief agenda to help SEs understand pacing:
 
-- **Phase 1 (Env setup & model training):** ~45 min
-- **Phase 2 (Model registry & batch inference):** ~30 min
-- **Phase 3 (Monitoring & cleanup):** ~15 min
-
-Include checkpoints (DORAs), recommended "stop points," and common customer questions.
+- **Phase 1 (Env setup & model training):** ~10 min
+- **Phase 2 (Running the Migration):** ~30 min
   
 ---
 
