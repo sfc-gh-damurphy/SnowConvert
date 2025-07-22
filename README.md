@@ -28,40 +28,37 @@ List of 4–6 concrete tasks participants will complete. Clearly bold important 
 Provide a brief agenda to help SEs understand pacing:
 
 - **Phase 1 (Env setup & model training):** ~10 min
-- **Phase 2 (Running the Migration):** ~30 min
+- **[Phase 2 (Running the Migration)](/lab_instructions/readme.md):** ~30 min
   
 ---
 
 ## 📖 Table of Contents
 
-- [Why this Matters](#why-this-matters)
-- [Suggested Discovery Questions](#suggested-discovery-questions)
-- [Repository Structure](#repository-structure)
-- [Prerequisites & Setup Details](#prerequisites--setup-details)
-- [Estimated Lab Timeline](#estimated-lab-timeline)
-- [Placeholder & Naming Conventions](#placeholder--naming-conventions)
-- [Troubleshooting & FAQ](#troubleshooting--faq)
-- [Cleanup & Cost-Stewardship Procedures](#cleanup--cost-stewardship-procedures)
-- [Advanced Concepts (Salted in Training)](#advanced-concepts-salted-in-training)
-- [Links to Internal Resources & Helpful Documents](#links-to-internal-resources--helpful-documents)
+- [Why this Matters](#-why-this-matters)
+- [Suggested Discovery Questions](#-suggested-discovery-questions)
+- [Repository Structure](#-repository-structure)
+- [Prerequisites & Setup Details](#-prerequisites--setup-details)
+- [Estimated Lab Timeline](#-estimated-lab-timeline)
+- [Troubleshooting & FAQ](#-troubleshooting--faq)
+- [Cleanup & Cost-Stewardship Procedures](#-cleanup--cost-stewardship-procedures)
+- [Links to Internal Resources & Helpful Documents](#-links-to-internal-resources--helpful-documents)
 
 ---
 
 ## 📌 Why this Matters
 
-- **Business value:** Clearly explain how this lab impacts KPIs (e.g. accelerates time-to-insight by X%, reduces manual processes by Y hours per month).
-- **Pricing impact:** Highlight compute and storage cost expectations and best practices for efficient resource use (e.g., turning off resources when idle to reduce costs by Z%).
+- **Business value:** Migration is multifaceted, involving code, data structures, pipelines, and business logic. SnowConvert simplifies code and structure migration. The Snowpark Migration Assistant is intended to aid in pipeline conversions, offering a foundational step for a complex migration process. 
+> SnowConvert provides a high-level overview of migration complexity, aiding customers in developing detailed migration plans and understanding the scope and effort required. Automated migration tools can underestimate the necessary work due to business rule and technology changes; simply replicating old processes in a new system is often insufficient. The effectiveness of SnowConvert depends on the quality of the data it analyzes and is typically not the only part of a migration to worry about but is a great place to get started
+- **Pricing impact:** There is no cost to utilize this tool, the cost comes in the work done on the database and the storage of the new objects, but the tool itself is free to use
 - **Customer stories:** Link to decks, blogs or other information to promote reference stories.
 
 ---
 
 ## ❓ Suggested Discovery Questions
 
-Provide **5 to 6 open-ended questions** for customer conversations related to this HOL.
-
-- "How are you currently handling [specific task or issue related to this HOL]?"
-- "What metrics matter most when evaluating [specific task or issue related to this HOL]?"
-- "Have you faced any security or compliance roadblocks with [specific task or issue related to this HOL]?"
+- "How are you currently handling migrations from legacy systems to Snowflake?"
+- "What metrics matter most when evaluating costs or complexity of a migration?"
+- "Have you faced any security or compliance roadblocks with migrating sensitive data from legacy systems?"
 - "How would you customize this pattern for your environment?"
 
 ---
@@ -70,17 +67,11 @@ Provide **5 to 6 open-ended questions** for customer conversations related to th
 
 ```bash
 ├── README.md           # Main entry point
-├── config/             # Configuration templates, credentials
-├── code/               # SQL/Python scripts for automation
-├── notebooks/          # Interactive Jupyter notebooks
-├── data/               # Datasets (CSV, JSON) or external links
-├── images/             # Diagrams and visual assets
-├── lab_instructions/   # Step-by-step detailed instructions
-│ ├── phase1_task1.md
-│ ├── phase2_task2.md
-│ └── phase3_task3.md
-└── troubleshooting/    # Common issues and resolutions
-└── faq.md
+├── config             # DORA Setup
+├── images             # Diagrams and visual assets
+├── lab_instructions   # Step-by-step detailed instructions
+│ ├── images           # Screenshots for the lab
+└── troubleshooting/   # Common issues and resolutions
 ```
 ---
 
@@ -88,19 +79,9 @@ Provide **5 to 6 open-ended questions** for customer conversations related to th
 
 Internally helpful setup requirements:
 
-- **Knowledge prerequisites:** List required skills or prior knowledge.
-- **Account and entitlement checks:** Necessary roles/users, network policies, external functions.
-- **Hardware/software:** Supported browsers, recommended accounts, required Python packages.
-
----
-
-## 🔖 Placeholder & Naming Conventions
-
-Clearly define naming conventions:
-
-- Databases/schemas/tables: `PROJ_DEMO_<your initials>_HOL`
-- Model versions: `COLLEGE_AI_HOL_<MODEL_NAME>_v1`
-- Secrets management: Safely store credentials and API keys (never commit to GitHub).
+- **Knowledge prerequisites:** Understanding of the goals, pipelines, sources, data size, frequency of updates, ETL patterns of the current envrionment
+- **Account and entitlement checks:** None
+- **Hardware/software:** This is a stand alone applciation you download and is only supported on Macs and Windows
 
 ---
 
@@ -119,40 +100,32 @@ Provide internal Slack channels or support queue links.
 ## 🧹 Cleanup & Cost-Stewardship Procedures
 
 🗑 **Cleanup Instructions:**
-- Run the command `DROP WAREHOUSE IF EXISTS [your warehouse];` in Snowflake after lab completion.
-- Immediately shut down your SageMaker instance through AWS Console:
-  - Navigate to SageMaker > JupyterLab Spaces.
-  - Stop or delete your workspace.
+- Run the command in Snowflake after lab completion.
+```sql
+DROP database IF EXISTS AdventureWorks;
+``` 
+- You can optionally remove any folders locally that were created for the migration by SnowConvert
 
 ---
 
-## 📘 Advanced Concepts (Salted in Training)
-
-Brief callouts to deeper internal learning topics:
-
-- **Topic 1:** Brief deeper context.
-- **Topic 2:** Brief deeper context.
-- **Topic 3:** Brief deeper context.
-
----
 
 ## 🔗 Links to Internal Resources & Helpful Documents
 
-- [Snowflake Documentation](#)
-- [Best Practices](#)
-- [Quickstarts](#)
+- [Snowflake Documentation](https://docs.snowflake.com/en/migrations/snowconvert-docs/general/getting-started/README)
+- [Professional Services GTM Catalog](https://snowflake.seismic.com/Link/Content/DC4X82m96XPWcGWGMpCRMpMPW4p3)
 - [Internal Wiki & Guidelines](#)
 
 ---
 
 ## 👤 Author & Support
 
-**Lab created by:** [Your Name] – [Your Job Title or Team]  
-**Created on:** [Month DD, YYYY] | **Last updated:** [Month DD, YYYY]
+**Lab created by:** Dan Murphy – SE Enablement Senior Manager  
+**Created on:** July 23, 2025 | **Last updated:** July 23, 2025
 
 💬 **Need Help or Have Feedback?**  
-- Slack Channel: [#your-slack-channel-name](https://your-slack-channel-link)  
-- Slack DM: [@YourSlackUsername](https://your-direct-slack-profile-link)  
-- Email: [your.email@example.com](mailto:your.email@example.com)
+- Slack Channel: [#college-of-analytics-and-migrations](https://snowflake.enterprise.slack.com/archives/C06R6B6MBNC)  
+- Slack Channel: [#snowconvert-technical-support](https://snowflake.enterprise.slack.com/archives/C04QD2LN37H)  
+- Slack DM: [@dan.murphy](https://snowflake.enterprise.slack.com/team/WEJR92JS2)  
+- Email: [dan.murphy@snowflake.com](mailto:dan.murphy@snowflake.com)
 
 🌟 *We greatly value your feedback to continuously improve our HOL experiences!*
