@@ -31,12 +31,12 @@ CONTEXT_HEADERS = (
   CURRENT_ACCOUNT_NAME
 )
 AS 'https://awy6hshxy4.execute-api.us-west-2.amazonaws.com/dev/edu_dora/greeting';
-
+--please fill out your information in the statement below
 SELECT util_db.public.se_greeting(
-  '<snowflake email>',
-  '<First Name>',
+  'snowflake email',
+  'First Name',
   '',
-  '<Last Name>'
+  'Last Name'
 );
 
 -- Create grading function
