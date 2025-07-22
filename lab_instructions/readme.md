@@ -1,29 +1,5 @@
 # Snowflake SnowConvert, Migration from SQL Server to Snowflake HOL
 
-SnowConvert analyzes SQL Server (and other databases) code to predict migration outcomes and identify areas requiring attention. It serves as a migration guide, not a complete automated solution. The Visual Studio Code plugin now integrates Snowflake Cortex, allowing users to directly query for solutions to common migration errors.
-
-## What you will do:
-
-It is recommended that you **DOWNLOAD** this document from compass and run it from your GDrive as that will make copy and paste a lot easier as sometimes formatting can go wrong when copying and pasting directly from compass.
-
-In this lab we will look at the Adventure Works database inside a SQL Server database. We will take a look at the catalog objects (tables, views) and some of the code that is there (stored procedures). Snowconvert will then extract that information and look for possible roadblocks to a migration and processes to consider. It will suggest some solutions but we will find out that the solutions it offers are not a best practice. This is where the GenAI integration of Snowflake Cortex will come into play to help us get possible solutions to this other than what SnowConvert generates programmatically.
-
-We will then take those changes and migrate the structures as well as the data to our snowflake environment.
-
-Below is an outline of the lab:
-
-- Connect to a SQL Server database and pull catalog information
-- Generate the input code from SQL Server
-- Understand the errors that SnowConvert surfaces
-- Resolve those errors using Cortex
-- Move the structure and the data to Snowflake
-
-## Why this matters:
-
-- Migration is multifaceted, involving code, data structures, pipelines, and business logic. SnowConvert simplifies code and structure migration. The Snowpark Migration Assistant is intended to aid in pipeline conversions, offering a foundational step for a complex migration process.
-
-- SnowConvert provides a high-level overview of migration complexity, aiding customers in developing detailed migration plans and understanding the scope and effort required. Automated migration tools can underestimate the necessary work due to business rule and technology changes; simply replicating old processes in a new system is often insufficient. The effectiveness of SnowConvert depends on the quality of the data it analyzes and is typically not the only part of a migration to worry about but is a great place to get started
-
 ## Step 0: Prerequisites
 
 To run through this lab, you need the following resources:
@@ -36,6 +12,8 @@ To run through this lab, you need the following resources:
 Both of these will run on your local machine. There are settings you will have to change to ensure everything runs correctly, but that will all be detailed in the walkthrough below.
 
 > **Important Note**: This lab uses GenAI, which can produce different results each time, potentially leading to varied errors and solutions. This document addresses common issues, but Cortex-generated code may differ slightly and suggest alternative troubleshooting steps. Remember, you have the necessary skills to resolve any errors and successfully complete the migration. Don't be concerned if your errors or code differ; this is expected with GenAI. Ensure all errors are resolved to successfully migrate data to your Snowflake environment and receive credit.
+
+---
 
 ## Step 1: Project Creation
 
@@ -95,6 +73,8 @@ You will need to have an active internet connection in order to activate your ac
 
 Now that we're active, let's Extract!
 
+---
+
 ## Step 2: Extract
 
 From the Project Creation menu, select the blue "GO TO EXTRACTION ->" button in the bottom right corner of the application. This will prompt you to create a connection to a SQL Server account and database.
@@ -151,6 +131,8 @@ Note that now we can see a green checkbox where the DDL was successfully extract
 ![Green Checkmarks](images/image018.jpg)
 
 If there was an error extracting the DDL, you would see a red X and would need to resolve why that was not extracted.
+
+---
 
 ## Step 3: Conversion
 
@@ -213,6 +195,8 @@ Understanding what we have is essential to successfully completing a migration. 
 Since we have a good understanding of what needs to be done and it's relatively small, let's go ahead and attack this. Let's resolve the issues that we have present. Before we do that, let's take a look at the status in our object inventory. Select "GO TO DEPLOYMENT" in the application.
 
 ![Go to Deployment](images/image028.jpg)
+
+---
 
 ## Step 4: Deployment
 
@@ -530,6 +514,8 @@ Where once there was no data, now... there is data. At this point, we would star
 
 Note that Snowflake has a data validation capability that is in Private Preview right now. Ask your HoL leaders about enrolling in this PrPr.
 
+---
+
 ## Review
 
 Before we get to our pipelines, let's take a quick look back.
@@ -560,6 +546,8 @@ And you can generally see that most of these activities fit our **assess** -> **
 - Moved the data from the source to Snowflake **to convert our data into Snowflake data**
 - All the while, we were able to track things in our object inventory **to better understand where we are in the migration process**.
 
+---
+
 ## Step 6: DORA Grading
 
 ### Configure DORA for Grading
@@ -572,81 +560,9 @@ And you can generally see that most of these activities fit our **assess** -> **
 
 #### DORA API Integration Setup
 
-1. To submit grading requests via external functions, follow the steps below in a new **SQL worksheet** in your Snowflake account.
+1. See code in [/config](/config) to setup DORA
 
-```sql
-USE ROLE ACCOUNTADMIN;
-
--- Create API integration
-CREATE OR REPLACE API INTEGRATION dora_api_integration
-API_PROVIDER = AWS_API_GATEWAY
-API_AWS_ROLE_ARN = 'arn:aws:iam::321463406630:role/snowflakeLearnerAssumedRole'
-ENABLED = TRUE
-API_ALLOWED_PREFIXES = (
-'https://awy6hshxy4.execute-api.us-west-2.amazonaws.com/dev/edu_dora'
-);
-
--- Confirm integration
-SHOW INTEGRATIONS;
-
--- Create utility database
-CREATE OR REPLACE DATABASE util_db;
-
--- Create greeting function
-CREATE OR REPLACE EXTERNAL FUNCTION util_db.public.se_greeting(
-email VARCHAR,
-firstname VARCHAR,
-middlename VARCHAR,
-lastname VARCHAR
-)
-RETURNS VARIANT
-API_INTEGRATION = dora_api_integration
-CONTEXT_HEADERS = (
-CURRENT_TIMESTAMP,
-CURRENT_ACCOUNT,
-CURRENT_STATEMENT,
-CURRENT_ACCOUNT_NAME
-)
-AS 'https://awy6hshxy4.execute-api.us-west-2.amazonaws.com/dev/edu_dora/greeting';
-
--- Replace with your Snowflake details
--- Example:
--- SELECT util_db.public.se_greeting(
--- 'dan.murphy@snowflake.com', 'Dan', '', 'Murphy');
-
-SELECT util_db.public.se_greeting(
-'your_email@snowflake.com',
-'Your First Name',
-'Your Middle Name or empty string',
-'Your Last Name'
-);
-
--- Create grading function
-CREATE OR REPLACE EXTERNAL FUNCTION util_db.public.se_grader(
-step VARCHAR,
-passed BOOLEAN,
-actual INTEGER,
-expected INTEGER,
-description VARCHAR
-)
-RETURNS VARIANT
-API_INTEGRATION = dora_api_integration
-CONTEXT_HEADERS = (
-CURRENT_TIMESTAMP,
-CURRENT_ACCOUNT,
-CURRENT_STATEMENT,
-CURRENT_ACCOUNT_NAME
-)
-AS 'https://awy6hshxy4.execute-api.us-west-2.amazonaws.com/dev/edu_dora/grader';
-
-grant usage on database util_db to role public;
-grant usage on schema util_db.public to role public;
-grant usage on function util_db.public.se_grader(varchar,boolean,integer,integer,varchar) to role public;
-```
-
-**✅ Expected Output**: You should see confirmation messages after each CREATE statement and be able to run the se_greeting function successfully.
-
-![DORA Setup](images/image091.jpg)
+---
 
 ### Validate Using DORA
 
