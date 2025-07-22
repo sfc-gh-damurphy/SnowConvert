@@ -29,6 +29,7 @@ Provide a brief agenda to help SEs understand pacing:
 
 - **Phase 1 (Env setup & model training):** ~10 min
 - **[Phase 2 (Running the Migration)](/lab_instructions/readme.md):** ~30 min
+- **[Phase 3 (Grading and validation)](/config):** ~5 min
   
 ---
 
