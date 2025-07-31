@@ -3,11 +3,6 @@
 
 ---
 
-## 🎬 Lab Overview Video
-Watch the [X-minute Lab Overview Video](overview.mp4) for a detailed walkthrough of key lab phases.
-
----
-
 ## 🛠️ Hands-On Lab Overview
 
 In this hands-on lab, you'll step into the shoes of **Data Engineer** tasked with **Migrating from SQL Server to Snowflake**.
