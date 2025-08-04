@@ -550,14 +550,8 @@ And you can generally see that most of these activities fit our **assess** -> **
 
 ## Step 6: DORA Grading
 
+**Please only complete this if you are a Snowflake Employee and part of the SE Organization**
+
 ### Configure DORA for Grading
-
-#### Why Use DORA?
-
-- **Automated Grading:** DORA enables SE BPs to automatically grade hands-on curriculum tasks, leveraging the grading framework created by the Training team. Developer Relations also uses it for event labs.
-
-- **Functionality:** DORA allows SE BPs to write tests that validate the completion of hands-on steps and track progress toward certification.
-
-#### DORA API Integration Setup
 
 1. See code in [/config](/config) to setup DORA and to grade the work that you did and get credit for the lab!
