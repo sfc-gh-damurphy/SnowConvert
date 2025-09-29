@@ -5,7 +5,7 @@
 To run through this lab, you need the following resources:
 
 - SnowConvert - Follow the steps below to download SnowConvert from inside your demo account:
-  ![SnowConvert Download](images/image001.jpg)
+  ![SnowConvert Download](images/Snowconvert_Download.jpg)
 
 - [Snowflake VS Code Extension](https://docs.snowflake.com/en/user-guide/vscode-ext)
 
