@@ -22,8 +22,9 @@ FROM (
         (
             SELECT COUNT(TABLE_NAME)
             FROM TABLES
+            where table_schema = 'DBO'
         ) AS actual,
-        83 AS expected,
+        34 AS expected,
         'All Tables and Views Created for SnowConvert Lab' AS description
 );
 
